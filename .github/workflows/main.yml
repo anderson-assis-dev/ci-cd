@@ -1,5 +1,4 @@
 name: CI/CD Pipeline
-
 on:
   push:
     branches:
@@ -68,7 +67,14 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Login no Docker Hub
+        uses: docker/login-action@v2
+        with:
+            username: andersonas
+            password: A@nderson301165
+
       - name: Construir a imagem Docker
         run: |
           echo "Construindo a imagem Docker..."
           docker build -t andersonas/minhaaplicacao:${{ github.sha }} .
+
