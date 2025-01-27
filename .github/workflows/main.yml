@@ -79,7 +79,7 @@ jobs:
         uses: docker/login-action@v2
         with:
           username: andersonas
-          password: ${{ secrets.DOCKER_PASSWORD }}
+          password: A@nderson301165
 
       - name: Construir a imagem Docker
         run: |
