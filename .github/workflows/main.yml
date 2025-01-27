@@ -21,19 +21,25 @@ jobs:
         with:
           php-version: 8.2
 
-      - name: Instalar dependências
-        run: composer install --prefer-dist --no-progress
-
-      - name: Verificar se o arquivo artisan existe
+      - name: Instalar dependências do Composer
         run: |
-          if [ ! -f artisan ]; then
+          echo "Instalando dependências do Composer..."
+          composer install --prefer-dist --no-progress
+
+      - name: Verificar se o Laravel foi instalado (verificar arquivo artisan)
+        run: |
+          echo "Verificando se o arquivo artisan está presente..."
+          if [ -f artisan ]; then
+            echo "Arquivo artisan encontrado!"
+          else
             echo "Arquivo artisan não encontrado!"
-              exit 1
-            fi
-        continue-on-error: false
+            exit 1
+          fi
 
       - name: Rodar testes
-        run: php artisan test
+        run: |
+          echo "Rodando testes do Laravel..."
+          php artisan test
 
       - name: Login no Docker Hub
         uses: docker/login-action@v2
@@ -43,5 +49,6 @@ jobs:
 
       - name: Build e Push da imagem Docker
         run: |
+          echo "Construindo a imagem Docker..."
           docker build -t andersonas/minhaaplicacao:${{ github.sha }} .
           docker push andersonas/minhaaplicacao:${{ github.sha }}
