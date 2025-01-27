@@ -1,0 +1,39 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v3
+
+      - name: Configurar PHP e Composer
+        uses: shivammathur/setup-php@v3
+        with:
+          php-version: 8.2
+
+      - name: Instalar dependências
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Rodar testes
+        run: php artisan test
+
+      - name: Login no Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build e Push da imagem Docker
+        run: |
+          docker build -t andersonas/minhaaplicacao:${{ github.sha }} .
+          docker push andersonas/minhaaplicacao:${{ github.sha }}
