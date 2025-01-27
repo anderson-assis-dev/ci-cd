@@ -11,7 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
@@ -44,9 +43,17 @@ jobs:
       - name: Criar o binário do projeto
         run: |
           echo "Criando o binário do projeto..."
-          # Limpar arquivos temporários ou desnecessários para evitar alterações enquanto cria o tar
-          rm -rf node_modules vendor .env.testing .env.local .git
-          tar -czf minhaaplicacao.tar.gz
+          # Cria a pasta temporária
+          mkdir -p binario
+          # Copia todos os arquivos necessários, exceto os que devem ser excluídos
+          rsync -av --progress --exclude=node_modules --exclude=.git --exclude=vendor --exclude=.env.testing --exclude=.env.local ./ binario/
+          # Verifica se a pasta temporária não está vazia
+          echo "Conteúdo da pasta binario:"
+          ls -la binario
+          # Cria o arquivo tar.gz a partir da pasta temporária
+          tar -czf minhaaplicacao.tar.gz -C binario .
+          # Limpa a pasta temporária
+          rm -rf binario
 
       - name: Publicar binário como artefato
         uses: actions/upload-artifact@v3
@@ -57,7 +64,6 @@ jobs:
   build-docker:
     runs-on: ubuntu-latest
     needs: build
-
     steps:
       - name: Checkout do código
         uses: actions/checkout@v3
