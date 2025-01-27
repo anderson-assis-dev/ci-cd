@@ -80,4 +80,4 @@ jobs:
       - name: Publicando Imagem
         run: |
           echo "Publicando a imagem Docker..."
-          docker push andersonas/minhaaplicacao:${{ github.sha }} .
+          docker push andersonas/minhaaplicacao:${{ github.sha }}
