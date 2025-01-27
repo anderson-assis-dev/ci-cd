@@ -1,0 +1,50 @@
+{
+  "name": "vendor/laravel-project",
+  "description": "Projeto Laravel",
+  "keywords": ["laravel", "framework"],
+  "type": "project",
+  "license": "MIT",
+  "require": {
+    "php": "^8.1",
+    "fideloper/proxy": "^4.4",
+    "fruitcake/laravel-cors": "^2.0",
+    "guzzlehttp/guzzle": "^7.3",
+    "laravel/framework": "^10.0",
+    "laravel/tinker": "^2.7",
+    "monolog/monolog": "^2.5"
+  },
+  "require-dev": {
+    "barryvdh/laravel-debugbar": "^3.7",
+    "fakerphp/faker": "^1.20",
+    "fruitcake/laravel-cors": "^2.0",
+    "mockery/mockery": "^1.5",
+    "phpunit/phpunit": "^9.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "classmap": [
+      "database/seeds",
+      "database/factories"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "post-autoload-dump": [
+      "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+      "@php artisan package:discover --ansi"
+    ]
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "preferred-install": "dist",
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
