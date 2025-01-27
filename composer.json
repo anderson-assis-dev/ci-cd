@@ -16,7 +16,7 @@
   "require-dev": {
     "barryvdh/laravel-debugbar": "^3.7",
     "fakerphp/faker": "^1.20",
-    "fruitcake/laravel-cors": "^2.0",
+    "fruitcake/laravel-cors": "^3.0",
     "mockery/mockery": "^1.5",
     "phpunit/phpunit": "^9.5"
   },
