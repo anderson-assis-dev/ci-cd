@@ -23,7 +23,8 @@ jobs:
 
       - name: Instalar dependências
         run: composer install --prefer-dist --no-progress --no-suggest
-
+      - name: Verificar arquivo artisan
+        run: ls -l
       - name: Rodar testes
         run: php artisan test
 
