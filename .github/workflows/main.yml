@@ -22,7 +22,18 @@ jobs:
           php-version: 8.2
 
       - name: Instalar dependências
-        run: composer install --prefer-dist --no-progress --no-suggest
+        run: composer install
+
+      - name: Verificar se o arquivo artisan existe
+        run: |
+          if [ ! -f artisan ]; then
+            echo "Arquivo artisan não encontrado!"
+              exit 1
+            fi
+        continue-on-error: false
+
+      - name: Rodar testes
+        run: php artisan test
 
       - name: Login no Docker Hub
         uses: docker/login-action@v2
