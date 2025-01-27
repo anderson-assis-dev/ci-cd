@@ -44,7 +44,7 @@ jobs:
       - name: Criar o binário do projeto
         run: |
           echo "Criando o binário do projeto..."
-          tar -czf meu-projeto.tar.gz .
+          tar -czf mminhaaplicacao.gz .
 
       - name: Publicar binário como artefato
         uses: actions/upload-artifact@v3
