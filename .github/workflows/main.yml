@@ -46,8 +46,7 @@ jobs:
           echo "Criando o binário do projeto..."
           # Limpar arquivos temporários ou desnecessários para evitar alterações enquanto cria o tar
           rm -rf node_modules vendor .env.testing .env.local .git
-          tar -czf minhaaplicacao.tar.gz .
-
+          tar -czf minhaaplicacao.tar.gz
 
       - name: Publicar binário como artefato
         uses: actions/upload-artifact@v3
